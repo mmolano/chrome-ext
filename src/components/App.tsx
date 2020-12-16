@@ -1,38 +1,35 @@
-import React from "react";
-import { Profile } from "../models/profile";
+import React, {useEffect, useState} from "react";
 import "./App.scss";
 
-interface State extends Profile {}
+const App: React.FunctionComponent<{}> = () => {
+  const [fullName, setFullName] = useState("Yes");
+  const [title, setTitle] = useState("Dev");
+  const [country, setCountry] = useState("France");
+  const [imageUrl, setImageUrl] = useState("");
 
-export class App extends React.Component<{}, State> {
-  state = {} as State;
-
-  public componentDidMount() {
+  useEffect(() => {
     if (chrome && chrome.tabs) {
-      chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+      chrome.tabs.query({currentWindow: true, active: true}, tabs => {
         const tab = tabs[0];
-        chrome.tabs.sendMessage(tab.id || 0, { from: "popup", subject: "getFullName" }, response => {
-          this.setState({
-            fullName: response.fullName,
-            title: response.title,
-            country: response.country,
-            imageUrl: response.imageUrl
-          });
-        });
-      });
+        chrome.tabs.sendMessage(tab.id || 0, {from: "popup", subject: "getFullName"}, response => {
+          setFullName(response.fullDisplayName);
+          setTitle(response.title);
+          setCountry(response.country);
+          setImageUrl(response.imageUrl);
+        })
+      })
     }
-  }
+  })
 
-  render() {
-    return (
-      <div className="app">
-        <div>{this.state.fullName}</div>
-        <div>{this.state.title}</div>
-        <div>{this.state.country}</div>
-        <img src={this.state.imageUrl} alt="profileImage"/>
-      </div>
-    );
-  }
+  return (
+    <div className="app">
+      <div>{fullName}</div>
+      <div>{title}</div>
+      <div>{country}</div>
+      <img src={imageUrl} alt="profileImage"/>
+    </div>
+  );
 }
+
 
 export default App;

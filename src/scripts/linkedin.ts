@@ -19,7 +19,7 @@ setTimeout(() => {
   getProfileInfo().then(result => {
     profile = result || profile;
   });
-}, 3000);
+}, 2000);
 
 chrome.runtime.onMessage.addListener(async (msg, sender, response) => {
   if (msg.from === "popup" && msg.subject === "getFullName") {
