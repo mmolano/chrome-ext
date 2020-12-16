@@ -8,10 +8,10 @@ const User: React.FunctionComponent<IProps> = props => {
   const {fullName, title, country, imageUrl, cardList} = props;
   return (
     <div>
-      <div>{fullName}</div>
+      <img className={'ts'} src={imageUrl} alt="profileImage"/>
+      <h1>{fullName}</h1>
       <div>{title}</div>
       <div>{country}</div>
-      <img src={imageUrl} alt="profileImage"/>
       <div>{cardList}</div>
     </div>
   );
