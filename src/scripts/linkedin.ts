@@ -5,12 +5,14 @@ async function getProfileInfo(): Promise<Profile> {
   const title = document.querySelectorAll(".pv-top-card h2.mt1")[0];
   const country = document.querySelectorAll(".pv-top-card--list-bullet li")[0];
   const image = document.querySelectorAll(".profile-photo-edit img")[0];
+  const cardList = document.querySelectorAll(".pv-top-card--experience-list")[0]
 
   return {
     fullName: fullName.textContent.replace(/\n/, "").trim(),
     title: title.textContent.replace(/\n/, "").trim(),
     country: country.textContent.replace(/\n/, "").trim(),
     imageUrl: image.getAttribute("src"),
+    cardList: cardList.textContent.replace(/\n/, "").trim()
   };
 }
 

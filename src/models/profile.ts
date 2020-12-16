@@ -3,4 +3,5 @@ export interface Profile {
   title: string;
   country: string;
   imageUrl: string;
+  cardList: string;
 }
